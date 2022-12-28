@@ -49,7 +49,7 @@
 }
 .god span {
   display: block;
-  /* max-height: 73px; */
+  max-height: 100px;
   overflow: hidden;
   color: #333844;
 }
