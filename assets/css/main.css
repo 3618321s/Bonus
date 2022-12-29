@@ -9,7 +9,7 @@
   justify-content: center;
   width: 100%;
   height: 100vh;
-  /* background: #FFF url("../img/bg-food.jpg") no-repeat top right; */
+  background: #FFF url("../img/bg-food.jpg") no-repeat top right;
   background-size: contain;
 }
 
@@ -34,7 +34,8 @@
 }
 .god {
   margin-bottom: 1rem;
-  margin-top: 100px;
+  margin-top: 1rem;
+  margin-right: 1rem;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.54);
   border: 1px solid rgba(41, 44, 55, 0.27);
@@ -1275,6 +1276,7 @@
 }
 
 .btns {
+  margin-right: 1rem;
   /* display: flex; */
   /* margin-bottom: 3rem; */
 }
@@ -1539,8 +1541,12 @@ input:checked + .button:after {
 
 
 .container {
-  max-width: 960px;
-  margin: 0 auto;
+  max-width: auto;
+  margin: 0 auto;  
+}
+
+.row {
+  width: 100%;
 }
 
 .container .trainList {
@@ -1550,6 +1556,8 @@ input:checked + .button:after {
   padding-top: 10px;
   padding-left: 0px;
   align-items: center;
+  border: 1px solid rgba(41, 44, 55, 0.27);
+  margin-left: 1rem;
 }
 
 .container .trainList1 {
@@ -1559,6 +1567,8 @@ input:checked + .button:after {
   padding-top: 10px;
   padding-left: 0px;
   align-items: center;
+  border: 1px solid rgba(41, 44, 55, 0.27);
+  margin-left: 1rem;
 }
 
 .container .trainList li {
