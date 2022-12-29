@@ -41,7 +41,6 @@
       itemprop="image"
       content="https://letswritetw.github.io/letswrite-food-check/assets/img/bg-food.jpg"
     />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"
@@ -51,6 +50,13 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Google Tag Manager-->
     <!-- <script>
@@ -63,14 +69,14 @@
   </head>
   <body>
     <!-- Google Tag Manager (noscript)-->
-    <noscript>
+    <!-- <noscript>
       <iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-PGQ9WQT"
         height="0"
         width="0"
         style="display: none; visibility: hidden"
       ></iframe>
-    </noscript>
+    </noscript> -->
 
     <!--  背景圖  -->
     <main class="full-block">
@@ -96,18 +102,25 @@
           </a>
         </section>
 
-        <!--  地圖  -->
-        <!-- <section id="map" class="map">
-				<iframe loading="lazy" frameborder="0" style="border:0" src="" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-			</section> -->
-
-        <!-- 區塊一 -->
-        <!-- <section class="result">
-          <span class="wrap1"> </span>
-        </section>
-        <section class="result1">
-          <span class="wrap2"> </span>
-        </section> -->
+        <div class="container" style="margin-top: 30px">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="container">
+                <ul class="trainList"></ul>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="container">
+                <ul class="trainList1"></ul>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="container">
+                <ul class="trainList2"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -142,24 +155,39 @@
       fetch(uri)
         .then((res) => res.json())
         .then((data) => {
-          let vages = []; // 數字0 未抽過
-          let meats = []; // 數字1 抽過
+          // let vages = []; // 數字0 未抽過
+          // let meats = []; // 數字1 抽過
+          let all = []; //全部
+          let pass = []; //抽過
+          let result = []; //沒抽過
 
           // 分葷、素，塞入陣列
           const d = data.values,
             len = d.length;
 
-          for (let i = 1; i < len; i++) {
-            d[i][2] === "0" ? vages.push(d[i][1]) : meats.push(d[i][1]);
+          // for (let i = 1; i < len; i++) {
+          //   d[i][2] === "0" ? vages.push(d[i][1]) : meats.push(d[i][1]);
+          // }
+
+          //塞入全部陣列中
+          for (let j = 1; j < len; j++) {
+            all.push(d[j][1]);
           }
+
+          //所有金額都顯示
+              var trainList = document.querySelector(".trainList");
+              //跑迴圈將li新增進去
+              for (let z = 0; z < all.length; z++) {
+                var li = document.createElement("li");
+                li.innerHTML =
+                  "<div><span id=" + z + ">" + all[z] + "</span></div>";
+                trainList.appendChild(li);
+              }
 
           // 點擊按鈕後執行
           let r; // 亂數
           let max, min; // 陣列的最大、小值
           let txt; // 結果
-
-          // 地圖
-          // const map = document.querySelector('#map iframe');         
 
           // 按鈕
           const btn = document.querySelector(".btn-start");
@@ -201,33 +229,57 @@
                 txt = toggle[r()];
                 list[0].innerText = txt;
 
+                pass.push(txt);
+
                 // 移除動畫
                 setTimeout(() => {
                   // 停止拉霸動畫
                   Array.prototype.forEach.call(list, (l) =>
                     l.removeAttribute("class")
                   );
-
-                  // 改變地圖位置
-                  // map.src = 'https://www.google.com/maps/embed/v1/place?key=' + embedApiKey + '&q=' + txt;
+                  //按鈕恢復
                   e.target.classList.remove("not-allow");
+                  //顯示被選中的值
+                  var trainList1 = document.querySelector(".trainList1");
+                  //跑迴圈將li新增進去
+                  var li = document.createElement("li");
+                  li.innerHTML = "";
+                  for (let a = 0; a < pass.length; a++) {
+                    li.innerHTML =
+                      "<div><span id=" + a + ">" + pass[a] + "</span></div>";
+                    trainList1.appendChild(li);
+                  }
+
+                  //整理原本資料
+                  result = all
+                    .filter((e) => {
+                      return pass.indexOf(e) === -1;
+                    })
+                    .concat(
+                      pass.filter((f) => {
+                        return all.indexOf(f) === -1;
+                      })
+                    );
+
+                  // //跑迴圈將li新增進去
+                  // for (let z = 0; z < result.length; z++) {
+                  //   var li = document.createElement("li");
+                  //   li.innerHTML =
+                  //     "<div><span id=" + z + ">" + result[z] + "</span></div>";
+                  //   trainList.appendChild(li);
+                  // }
                 }, duration);
+              };              
 
-                // 顯示地圖
-                // map.addEventListener('load', () => {
-                // 	map.classList.remove('hidden');
-                //
-                // }, false);
-              };
-
-              // // 地圖先消失
-              // map.classList.add('hidden');
-
-              //開始執行
-              chooseShop(vages);
-              // 判斷葷素後，開始執行
-              // let vage = document.getElementById('vage');
-              // vage.checked ? chooseShop(vages) : chooseShop(meats);
+              if (pass.length == 0) {
+                //開始執行
+                chooseShop(all);
+              } else if (result.length == 0) {
+                btn.disabled = false;
+              } else {
+                //開始執行
+                chooseShop(result);
+              }
             },
             false
           );
