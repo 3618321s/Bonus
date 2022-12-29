@@ -103,14 +103,10 @@
 
         <!-- 區塊一 -->
         <section class="result">
-          <span class="wrap1">
-
-          </span>
+          <span class="wrap1"> </span>
         </section>
         <section class="result1">
-          <span class="wrap2">
-
-          </span>
+          <span class="wrap2"> </span>
         </section>
       </div>
     </main>
@@ -163,10 +159,7 @@
           let txt; // 結果
 
           // 地圖
-          // const map = document.querySelector('#map iframe');
-
-		  let Bonus = document.querySelector(".wrap1");
-		  let er_Bonus = document.querySelector(".wrap2");
+          // const map = document.querySelector('#map iframe');         
 
           // 按鈕
           const btn = document.querySelector(".btn-start");
@@ -218,19 +211,6 @@
                   // 改變地圖位置
                   // map.src = 'https://www.google.com/maps/embed/v1/place?key=' + embedApiKey + '&q=' + txt;
                   e.target.classList.remove("not-allow");
-				  // 清空、插入選項				  
-                	Bonus.innerHTML = "";
-                	for (let z = 0; z < vages.length; z++) {
-                  	input.insertAdjacentHTML(
-                    "beforeend",
-                    "<span>" + vages[z] + "</span>"
-                  	);}
-					er_Bonus.innerHTML = "";
-                	for (let y = 0; y < meats.length; y++) {
-					er_Bonus.insertAdjacentHTML(
-                    "beforeend",
-                    "<span>" + meats[y] + "</span>"
-                  );}
                 }, duration);
 
                 // 顯示地圖
