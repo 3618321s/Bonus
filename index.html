@@ -112,6 +112,13 @@
               <ul class="trainList"></ul>
             </div>
           </div>
+
+          <!-- <div class="col-sm-2">
+            <div class="container text-center">
+              <h5>all</h5>
+              <ul class="test"></ul>
+            </div>
+          </div> -->
           
           <div class="col-sm-2">
             <div class="container text-center">
@@ -141,6 +148,11 @@
 	</div> -->
 
     <script>
+      window.onbeforeunload = function(event) {
+            //event.preventDefault(); //chrome無效, ff有效, ie11有效
+            event.returnValue = ''; //chrome有效, ff無效, ie11有效
+            //return ''; //chrome有效, ff有效, ie11有效
+        };
       // Maps Embed API、Google Sheets API 的 金鑰
       // 可由 https://console.developers.google.com/apis 申請
       const embedApiKey = "AIzaSyDXC-ahKOIns3_qjoh9y3XXYgs3eFt7XuY";
@@ -156,8 +168,9 @@
         .then((data) => {
           // let vages = []; // 數字0 未抽過
           // let meats = []; // 數字1 抽過
-          let all = []; //全部
-          let pass = []; //抽過
+          let all = []; //序號
+          let all_Bonus = [] //金額
+          let pass = []; //抽過序號
           let result = []; //沒抽過
 
           // 分葷、素，塞入陣列
@@ -170,22 +183,29 @@
 
           //塞入全部陣列中
           for (let j = 1; j < len; j++) {
-            all.push(d[j][1]);
+            all.push(d[j][0]);
+            all_Bonus.push(d[j][1]);
           }
+          
 
           var trainList = document.querySelector(".trainList");
+          var test = document.querySelector(".test");
           if (result.length == 0) {
             //跑迴圈將li新增進去
             for (let z = 0; z < all.length; z++) {
               var li = document.createElement("li");
-              li.innerHTML =
-                "<div><span id=" + z + ">" + all[z] + "</span></div>";
+              // li.innerHTML =
+              //   "<div><span id=" + z + ">" + all[z] + "</span></div>";
+              // trainList.appendChild(li);
+              // var li1 = document.createElement("li");
+              li.innerHTML = "<div><span id=" + z + ">" + all_Bonus[z] + "</span></div>";
               trainList.appendChild(li);
             }
           } else {
             //跑迴圈將li新增進去
             for (let z = 0; z < result.length; z++) {
               var li = document.createElement("li");
+              let sn = result[z]-1;
               li.innerHTML =
                 "<div><span id=" + z + ">" + result[z] + "</span></div>";
               trainList.appendChild(li);
@@ -219,7 +239,7 @@
                 for (let i = 0; i < toggle.length; i++) {
                   input.insertAdjacentHTML(
                     "beforeend",
-                    "<span>" + toggle[i] + "</span>"
+                    "<span>" + all_Bonus[i] + "</span>"
                   );
                 }
 
@@ -234,7 +254,8 @@
 
                 // 亂數決定中選店家
                 txt = toggle[r()];
-                list[0].innerText = txt;
+                context = all_Bonus[txt-1];
+                list[0].innerText = context;
 
                 pass.push(txt);
 
@@ -252,8 +273,9 @@
                   var li = document.createElement("li");
                   li.innerHTML = "";
                   for (let a = 0; a < pass.length; a++) {
+                    let sn = pass[a]-1;
                     li.innerHTML =
-                      "<div><span id=" + a + ">" + pass[a] + "</span></div>";
+                      "<div><span id=" + a + ">" + all_Bonus[sn] + "</span></div>";
                     trainList1.appendChild(li);
                   }
 
