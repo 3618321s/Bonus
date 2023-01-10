@@ -22,7 +22,7 @@
 }
 .main-block {
   /* margin-right: 25vw; */
-  width: 40vw;
+  width: 70vh;
   text-align: center;
 }
 
@@ -34,7 +34,7 @@
 }
 .god {
   margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin-top: 10rem;
   margin-right: 1rem;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.54);
@@ -1568,18 +1568,17 @@ input:checked + .button:after {
   padding-left: 0px;
   align-items: center;
   border: 1px solid rgba(41, 44, 55, 0.27);
-  margin-left: 1rem;
+  margin-left: 1rem;  
 }
 
 .container .trainList1 {
   display: flex;
   align-items: baseline;
-  flex-direction: column;
-  padding-top: 10px;
+  flex-direction: column;  
   padding-left: 0px;
   align-items: center;
-  border: 1px solid rgba(41, 44, 55, 0.27);
-  margin-left: 1rem;
+  border: 1px solid rgba(41, 44, 55, 0.27);  
+  /* height: 650px; */
 }
 
 .container .trainList li {
@@ -1596,20 +1595,23 @@ input:checked + .button:after {
 
 .container .test li {
   width: auto;
-  /* height: 50px; */
-  font-size: 18px;
+  height: 650px;
+  font-size: 30px;
+  font-weight: bold;
   background-color: #ffffff;
   border-radius: 7px;
   color: #000000;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .container .trainList1 li {
   width: auto;
-  /* height: 50px; */
-  font-size: 18px;
+  /* height: 650px; */
+  font-size: 20px;
+  font-weight: bold;
   background-color: #ffffff;
   border-radius: 7px;
   color: #000000;
