@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Sizes:</h2>
+
+<p id="sa"></p>
+<p id="a1"></p>
+<p id="a2"></p>
+<p id="a3"></p>
+<p id="a4"></p>
+<p id="a5"></p>
+<p id="a6"></p>
+<p id="a7"></p>
+<p id="a8"></p>
+<p id="a9"></p>
+<p id="a10"></p>
+<p id="a11"></p>
+<p id="a12"></p>
+<p id="a13"></p>
+<p id="a14"></p>
+<p id="a15"></p>
+
+<script>
+var aw = document.body.clientWidth;
+var ah = document.body.clientHeight;
+var a1 = document.body.offsetWidt;
+var a2 =document.body.offsetHeigh;
+var a3 =document.body.scrollWidt;
+var a4 =document.body.scrollHeigh;
+var a5 =document.body.scrollTo;
+var a6 =document.documentElement.scrollTo;
+var a7 =document.body.scrollLef;
+var a8 =window.screenTo;
+var a9 =window.screenLef;
+var a10 =window.screen.heigh;
+var a11 =window.screen.widt;
+var a12 =window.screen.availHeigh;
+var a13 =window.screen.availWidt;
+var a14 =window.screen.colorDept;
+var a15 =window.screen.devicexDP;
+
+var x = document.getElementById("sa");
+var x1 = document.getElementById("a1");
+var x2 = document.getElementById("a2");
+var x3 = document.getElementById("a3");
+var x4 = document.getElementById("a4");
+var x5 = document.getElementById("a5");
+var x6 = document.getElementById("a6");
+var x7 = document.getElementById("a7");
+var x8 = document.getElementById("a8");
+var x9 = document.getElementById("a9");
+var x10 = document.getElementById("a10");
+var x11 = document.getElementById("a11");
+var x12 = document.getElementById("a12");
+var x13 = document.getElementById("a13");
+var x14 = document.getElementById("a14");
+var x15 = document.getElementById("a15");
+
+x.innerHTML = "您目前使用的裝置（Height × Width）:" + aw + " , " + ah;
+x1.innerHTML = "網頁可見區域寬:" + a1;
+x2.innerHTML = "網頁可見區域高:" + a2;
+x3.innerHTML = "網頁正文全文寬:" + a3;
+x4.innerHTML = "網頁正文全文高:" + a4;
+x5.innerHTML = "網頁被卷去的高(ff):" + a5;
+x6.innerHTML = "網頁被卷去的高(ie):" + a6;
+x7.innerHTML = "網頁被卷去的左:" + a7;
+x8.innerHTML = "網頁正文部分上:" + a8;
+x9.innerHTML = "網頁正文部分左:" + a9;
+x10.innerHTML = "螢幕解析度的高:" + a10;
+x11.innerHTML = "螢幕解析度的寬:" + a11;
+x12.innerHTML = "螢幕可用工作區高度:" + a12;
+x13.innerHTML = "螢幕可用工作區寬度:" + a13;
+x14.innerHTML = "你的螢幕設置是:" + a14;
+x15.innerHTML = "你的螢幕設置:" + a15;
+
+
+</script>
+</body>
+</html>
