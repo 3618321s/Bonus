@@ -1277,6 +1277,9 @@
 
 .btns {
   margin-right: 1rem;
+  background: rgba(255, 255, 255, 0.54);
+  font-weight: bold;
+  height: 5em;
   /* display: flex; */
   /* margin-bottom: 3rem; */
 }
@@ -1292,13 +1295,15 @@
   /* margin-left: 2rem; */
   padding: 1rem 2rem;
   width: 100%;
+  height: 5em;
   border: 1px solid rgba(41, 44, 55, 0.27);
   text-decoration: none;
-  color: rgba(41, 44, 55, 0.54);
+  color: rgba(0, 0, 0, 0.54);
 }
 .btn-start::after {
-  content: "轉動命運輪盤";
+  content: "財運兔Lucky！(按這裡)";
   line-height: 1;
+  font-size: 40px
 }
 .btn-start:hover {
   color: #CD0505;
@@ -1563,11 +1568,11 @@ input:checked + .button:after {
   display: flex;
   align-items: baseline;
   flex-direction: column;
-  padding-top: 10px;
+  padding-top: 0px;
   padding-left: 0px;
   align-items: center;
   border: 1px solid rgba(41, 44, 55, 0.27);
-  margin-left: 1rem;  
+  margin-left: 1em;  
 }
 
 .container .trainList1 {
