@@ -1497,25 +1497,25 @@ input:checked + .button:after {
 }
 .github {
   position: fixed;
-  left: 0;
-  bottom: 0;
+  right: 0;
+  top: 0;
   display: flex;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
 }
 .github::before {
   content: "";
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 100px 0 0 100px;
-  border-color: transparent transparent transparent #6e5494;
+  border-width: 0 50px 50px 0;
+  border-color: transparent transparent transparent #fff;
 }
 .github .fa {
   position: absolute;
   left: 10px;
   bottom: 5px;
-  font-size: 3rem;
+  font-size: 1rem;
   color: #FFF;
 }
 
@@ -1624,4 +1624,60 @@ input:checked + .button:after {
   justify-content: space-between;
   align-items: center;
 }
+.ctrlbutton {
+  display: inline-block;
+  margin: 5px 3px;
+  font-weight: 400;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 2px 13px;
+  font-size: 14px;
+  line-height: 30px;
+  min-height: 35px;
+  border-radius: 2px;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  color: #ffffff;
+  background-color: rgb(148, 190, 214);
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  box-shadow: 2px 2px 3px grey;
+  border: none;
+  padding-right: 11px;
 
+  /* 新增按鈕寬度 */
+  width: 60px;
+}
+
+/* 當圖示被游標覆蓋時，它同層的下一個標籤狀態改變 */
+i:hover + .ctrlbutton, .ctrlbutton:hover {
+  color: white;
+  box-shadow: none;
+  border: none;
+  background-color: rgb(124, 170, 195);
+}
+
+/* 設外層為基準位置 */
+.btnI1{
+position: relative;
+}
+
+
+/* 放大鏡設為相對位置 */
+i.fa-search{
+position: absolute;
+top: 16px;
+left: 26px;
+color: white;
+}
+
+
+/* 游標移動到圖示時，游標改變 */
+i.fa-search:hover{
+cursor: pointer;
+}

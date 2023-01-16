@@ -14,6 +14,9 @@
       name="description"
       content="參考午餐吃什麼？用抽獎方式來決定今天的午餐吧！由 August 開發，以 Google Sheets 當資料庫，介接 Google Map Embed API，輕鬆好管理。"
     />
+    <!-- 在這裡貼上 -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
     <link
       rel="shortcut icon"
       href="https://letswritetw.github.io/letswritetw/dist/img/logo_512.png"
@@ -137,8 +140,21 @@
         </div>
       </div>
     </main>
-
+    <!--  github link  -->
+	<div class="github">
+    <a class="btn btn-default" href="#" id="btplay">
+    <i class="fa fa-play" aria-hidden="true"></i>		
+  </a>
+	</div>    
+    <audio src="assets/happynewyear.mp3" id="MyMp3" autoplay loop>
+      遇到不支援的瀏覽器會出現這行字
+    </audio>
     <script>
+      var btnplayer  = document.querySelector("#btplay");
+      var emymp3 = document.querySelector("#MyMp3");
+      btnplayer.onclick = function () {
+      emymp3.play();
+      };
       window.onbeforeunload = function (event) {
         //event.preventDefault(); //chrome無效, ff有效, ie11有效
         event.returnValue = ""; //chrome有效, ff無效, ie11有效
@@ -147,7 +163,7 @@
       // Maps Embed API、Google Sheets API 的 金鑰
       // 可由 https://console.developers.google.com/apis 申請
       const embedApiKey = "AIzaSyDXC-ahKOIns3_qjoh9y3XXYgs3eFt7XuY";
-
+      
       const uri =
         "https://sheets.googleapis.com/v4/spreadsheets/1BrBZECi3UmUaPle0M75xc99RYb5dXuZmmUrM6j4aNSY/values/BONUS?alt=json&key=" +
         embedApiKey;
