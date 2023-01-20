@@ -1571,6 +1571,44 @@ input:checked + .button:after {
     font-size: 2rem;
   }
 }
+.dishidden {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  width: 50px;
+  height: 50px;
+}
+.dishidden::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 50px 50px 0;
+  border-color: transparent transparent transparent #fff;
+}
+.dishidden .fa {
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
+  font-size: 1rem;
+  color: #FFF;
+}
+
+@media screen and (max-width: 768px) {
+  .dishidden {
+    width: 70px;
+    height: 70px;
+  }
+  .dishidden::before {
+    border-width: 70px 0 0 70px;
+  }
+  .dishidden .fa {
+    left: 8px;
+    bottom: 4px;
+    font-size: 2rem;
+  }
+}
 .search-only {
   position: absolute;
   width: 1px;

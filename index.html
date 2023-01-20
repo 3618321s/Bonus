@@ -123,6 +123,11 @@
       <i class="fa fa-expand" aria-hidden="true"></i>
     </a>
   </div>
+  <div class="dishidden">
+    <a class="btn btn-default" href="#" id="btnhidden">
+      <i class="fa fa-angellist" aria-hidden="true"></i>
+    </a>
+  </div>
   <audio src="assets/happynewyear.mp3" id="MyMp3" autoplay loop>
     遇到不支援的瀏覽器會出現這行字
   </audio>
@@ -131,6 +136,10 @@
     btn_open.onclick = function (){
       document.getElementById("Bonus").style.visibility = "visible";
     }
+    var btn_hidden = document.querySelector("#btnhidden");
+    btn_hidden.onclick = function (){
+      document.getElementById("Bonus").style.visibility = "hidden";
+    }    
     var btnplayer = document.querySelector("#btplay");
     var emymp3 = document.querySelector("#MyMp3");
     btnplayer.onclick = function () {
