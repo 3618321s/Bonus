@@ -85,7 +85,7 @@
           </div>
         </div> -->
 
-        <div class="col-sm-3" style="visibility:hidden">
+        <div class="col-sm-3" style="visibility:hidden" id="Bonus">
           <div class="container text-center" style="margin-left: 30px;">
             <h5>抽獎金額</h5>
             <ul class="test"></ul>
@@ -108,8 +108,30 @@
       </div>
     </div>
   </main>
-
+  <!--  github link  -->
+  <div class="github">
+    <a class="btn btn-default" href="#" id="btplay">
+      <i class="fa fa-play" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="displaydiv">
+    <a class="btn btn-default" href="#" id="btnblock">
+      <i class="fa fa-expand" aria-hidden="true"></i>
+    </a>
+  </div>
+  <audio src="assets/happynewyear.mp3" id="MyMp3" autoplay loop>
+    遇到不支援的瀏覽器會出現這行字
+  </audio>
   <script>
+    var btn_open = document.querySelector("#btnblock");
+    btn_open.onclick = function (){
+      document.getElementById("Bonus").style.visibility = "visible";
+    }
+    var btnplayer = document.querySelector("#btplay");
+    var emymp3 = document.querySelector("#MyMp3");
+    btnplayer.onclick = function () {
+      emymp3.play();
+    }; 
     window.onbeforeunload = function (event) {
       //event.preventDefault(); //chrome無效, ff有效, ie11有效
       event.returnValue = ""; //chrome有效, ff無效, ie11有效
@@ -170,7 +192,7 @@
           }
           
           testil.innerHTML =
-            "<div><span>1,000元 x " +
+            "<div><span>準備獎項<br/>1000元 x 1 個<br/>500元 x 2 個<br/>200元 x 5 個<br/>100元 x 14 個<br/><br/>剩餘獎項</span></div><div><span>1,000元 x " +
             B1000 +
             " 個</span></div><div><span>500元 x " +
             B500 +
@@ -303,7 +325,7 @@
                   }
                 }
                 testil.innerHTML =
-                  "<div><span>1,000元 x " +
+                  "<div><span>準備獎項<br/>1000元 x 1 個<br/>500元 x 2 個<br/>200元 x 5 個<br/>100元 x 14 個<br/><br/>剩餘獎項</span></div><div><span>1,000元 x " +
                   B1000 +
                   " 個</span></div><div><span>500元 x " +
                   B500 +
