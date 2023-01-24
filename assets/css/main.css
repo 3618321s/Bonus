@@ -1636,7 +1636,7 @@ input:checked + .button:after {
   flex-direction: column;  
   padding-left: 0px;
   align-items: center;
-  border: 1px solid rgba(41, 44, 55, 0.27); 
+  /* border: 1px solid rgba(41, 44, 55, 0.27);  */
   background: rgba(255, 255, 255, 0.54); 
   /* height: 650px; */
 }
@@ -1658,14 +1658,14 @@ input:checked + .button:after {
   flex-direction: column;  
   padding-left: 0px;
   align-items: center;
-  border: 1px solid rgba(41, 44, 55, 0.27);  
+  /* border: 1px solid rgba(41, 44, 55, 0.27);   */
   background: rgba(255, 255, 255, 0.54);
 }
 
 .container .trainList li {
-  width: auto;
+  width: 100px;
   /* height: 650px; */
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.54);
   border-radius: 7px;
@@ -1673,6 +1673,7 @@ input:checked + .button:after {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  justify-content: center;
 }
 
 .container .test li {
@@ -1690,9 +1691,9 @@ input:checked + .button:after {
 }
 
 .container .trainList1 li {
-  width: auto;
+  width: 100px;
   /* height: 650px; */
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.54);
   border-radius: 7px;
@@ -1700,6 +1701,7 @@ input:checked + .button:after {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  justify-content: center;
 }
 .ctrlbutton {
   display: inline-block;
