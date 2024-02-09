@@ -7,21 +7,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" />
 
-  <title>好過年年好過過好年 - Let's Start</title>
+  <title>好運龍總來，大家龍探吉 - 金龍納福</title>
   <meta name="description"
     content="參考午餐吃什麼？用抽獎方式來決定今天的午餐吧！由 August 開發，以 Google Sheets 當資料庫，介接 Google Map Embed API，輕鬆好管理。" />
   <!-- 在這裡貼上 -->
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-  <link rel="shortcut icon" href="https://3618321s.github.io/Bonus/assets/img/S__15302660.ico" />
+  <link rel="shortcut icon" href="https://3618321s.github.io/Bonus/assets/img/dragon_icon.ico" />
   <meta property="og:url" content="https://letswritetw.github.io/letswrite-food-check/" />
   <!-- <meta property="og:site_name" content="Let's Write" /> -->
-  <meta property="og:title" content="好過年年好過過好年 - Let's Start" />
+  <meta property="og:title" content="好運龍總來，大家龍探吉 - Let's Start" />
   <meta property="og:description"
     content="參考午餐吃什麼？用抽獎方式來決定今天的午餐吧！由 August 開發，以 Google Sheets 當資料庫，介接 Google Map Embed API，輕鬆好管理。" />
   <meta property="og:image" content="https://letswritetw.github.io/letswrite-food-check/assets/img/bg-food.jpg" />
-  <meta itemprop="name" content="好過年年好過過好年 - Let's Start" />
+  <meta itemprop="name" content="好運龍總來，大家龍探吉 - Let's Start" />
   <meta itemprop="description"
     content="參考午餐吃什麼？用抽獎方式來決定今天的午餐吧！由 August 開發，以 Google Sheets 當資料庫，介接 Google Map Embed API，輕鬆好管理。" />
   <meta itemprop="image" content="https://letswritetw.github.io/letswrite-food-check/assets/img/bg-food.jpg" />
@@ -93,13 +93,14 @@
 
         <div class="col-sm-3" style="visibility:hidden" id="Bonus">
           <div class="container text-center" style="margin-left: 30px;">
-            <h5>抽獎金額</h5>
+            <h5>得獎機制</h5>
             <ul class="test"></ul>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="container text-center" style="margin-left: 30px;">
-            <h5>獎項</h5>
+            <h5>數字
+            </h5>
             <div class="row">
               <div class="col-sm-6">
                 <ul class="trainList1"></ul>
@@ -130,17 +131,24 @@
       <i class="fa fa-angellist" aria-hidden="true"></i>
     </a>
   </div>
-  <audio src="assets/happynewyear.mp3" id="MyMp3" autoplay loop>
+  <audio src="assets/happynewyear2024.mp3" id="MyMp3" autoplay loop>
     遇到不支援的瀏覽器會出現這行字
   </audio>
   <script>
+    var trainList = document.querySelector(".trainList");
+    var test = document.querySelector(".test");
+    var testil = document.createElement("li");
     var btn_open = document.querySelector("#btnblock");
     btn_open.onclick = function (){
       document.getElementById("Bonus").style.visibility = "visible";
     }
     var btn_hidden = document.querySelector("#btnhidden");
     btn_hidden.onclick = function (){
-      document.getElementById("Bonus").style.visibility = "hidden";
+      //document.getElementById("Bonus").style.visibility = "hidden";
+       testil.innerHTML ="";
+       testil.innerHTML ="<div><span>對獎方式<br/><br/>將紙張箭頭↑<br/>往上<br/>用手機掃描賓果卡左方的qrcode<br/><br>金龍納福<br/>後面數字*100代表中獎金額<br/>" +
+             "</span></div>";
+       test.appendChild(testil);
     }    
     var btnplayer = document.querySelector("#btplay");
     var emymp3 = document.querySelector("#MyMp3");
@@ -154,13 +162,13 @@
     };
     // Maps Embed API、Google Sheets API 的 金鑰
     // 可由 https://console.developers.google.com/apis 申請
-    const embedApiKey = "AIzaSyDXC-ahKOIns3_qjoh9y3XXYgs3eFt7XuY";
+    const embedApiKey = "AIzaSyDgOfzOEyGuDh0xZyYN_RQh8hU_3ZziFD0";
 
     const uri =
-      "https://sheets.googleapis.com/v4/spreadsheets/1BrBZECi3UmUaPle0M75xc99RYb5dXuZmmUrM6j4aNSY/values/BONUS?alt=json&key=" +
+      "https://sheets.googleapis.com/v4/spreadsheets/1KUI8C_tH3MngXJwtC4ENV29EGWSuUWgW5OGhvg760eI/values/Bonus?alt=json&key=" +
       embedApiKey;
     //https://docs.google.com/spreadsheets/d/1BrBZECi3UmUaPle0M75xc99RYb5dXuZmmUrM6j4aNSY/edit#gid=678916723
-    const duration = 2000; // 拉霸效果執行多久
+    const duration = 1000; // 拉霸效果執行多久
 
     fetch(uri)
       .then((res) => res.json())
@@ -174,55 +182,56 @@
           len = d.length;
 
         //塞入全部陣列中
-        for (let j = 1; j < len; j++) {
+        for (let j = 0; j <= len-1; j++) {
           all.push(d[j][0]);
           all_Bonus.push(d[j][1]);
         }
+        //alert(all);
 
-        let B500 = 0;
-        let B200 = 0;
-        let B100 = 0;
-
-        var trainList = document.querySelector(".trainList");
-        var test = document.querySelector(".test");
-        var testil = document.createElement("li");
-        if (result.length == 0) {
-          //跑迴圈將li新增進去
-          for (let z = 0; z < all.length; z++) {
-            // var li = document.createElement("li");
-            // li.innerHTML = "<div><span id=" + z + ">" + all_Bonus[z] + "</span></div>";
-            // trainList.appendChild(li);
-            //計算數量
-            if (all_Bonus[z] / 500 == 1) {
-              B500 += 1;
-            } else if (all_Bonus[z] / 200 == 1) {
-              B200 += 1;
-            } else {
-              B100 += 1;
-            }
-          }
-          testil.innerHTML =
-            "<div><span>準備獎項<br/>500元 x 2 個<br/>200元 x 5 個<br/>100元 x 33 個<br/><br/>剩餘獎項</span></div><div><span>500元 x " +
-            B500 +
-            " 個</span></div><div><span>200元 x " +
-            B200 +
-            " 個</span></div><div><span>100元 x " +
-            B100 +
-            " 個</span></div>";
-          test.appendChild(testil);
-        } else {
-          //跑迴圈將li新增進去
-          for (let z = 0; z < result.length; z++) {
-            var li = document.createElement("li");
-            let sn = result[z] - 1;
-            li.innerHTML =
-              "<div><span id=" + z + ">" + result[z] + "</span></div>";
-            trainList.appendChild(li);
-          }
-        }
+        // var trainList = document.querySelector(".trainList");
+        // var test = document.querySelector(".test");
+        // var testil = document.createElement("li");
+        testil.innerHTML =
+            "<div><span>賓果<br/>總共會抽出<br/>25個數字<br/><br/>賓果條數<br/>5條線 1600元<br/>4條線 1200元<br/>3條線 800元<br/>2條線 600元<br/>1條線 200元<br/>" +
+            "</span></div>";
+        test.appendChild(testil);
+        // if (result.length == 0) {
+        //   //跑迴圈將li新增進去
+        //   for (let z = 0; z < all.length; z++) {
+        //     // var li = document.createElement("li");
+        //     // li.innerHTML = "<div><span id=" + z + ">" + all_Bonus[z] + "</span></div>";
+        //     // trainList.appendChild(li);
+        //     //計算數量
+        //     // if (all_Bonus[z] / 500 == 1) {
+        //     //   B500 += 1;
+        //     // } else if (all_Bonus[z] / 200 == 1) {
+        //     //   B200 += 1;
+        //     // } else {
+        //     //   B100 += 1;
+        //     // }
+        //   }
+        //   testil.innerHTML =
+        //     "<div><span>準備獎項<br/>500元 x 2 個<br/>200元 x 5 個<br/>100元 x 33 個<br/><br/>剩餘獎項</span></div><div><span>500元 x " +
+        //     B500 +
+        //     " 個</span></div><div><span>200元 x " +
+        //     B200 +
+        //     " 個</span></div><div><span>100元 x " +
+        //     B100 +
+        //     " 個</span></div>";
+        //   test.appendChild(testil);
+        // } else {
+        //   //跑迴圈將li新增進去
+        //   for (let z = 0; z < result.length; z++) {
+        //     var li = document.createElement("li");
+        //     let sn = result[z] - 1;
+        //     li.innerHTML =
+        //       "<div><span id=" + z + ">" + result[z] + "</span></div>";
+        //     trainList.appendChild(li);
+        //   }
+        // }
 
         // 點擊按鈕後執行
-        let r; // 亂數
+        let r,temp,temp1,sn; // 亂數
         let max, min; // 陣列的最大、小值
         let txt; // 結果
 
@@ -245,14 +254,25 @@
                 color: '#fff'
               }
             });
-            setTimeout($.unblockUI, 1800);
+            setTimeout($.unblockUI, 1000);
             // 選店家 fn
+            temp = 0;
+            temp1 = 0; 
+            sn = 0;           
             const chooseShop = (toggle) => {
               // 取亂數 fn
               r = () => {
                 max = toggle.length - 1;
                 min = 0;
-                return Math.floor(Math.random() * (max - min + 1)) + min;
+                if (temp1 == 0){
+                  sn = temp;
+                }
+                else{
+                  sn = temp + 1;
+                }
+                temp1 = temp1+1;                        
+                return sn;
+                //return Math.floor(Math.random() * (max - min + 1)) + min;
               };
 
               // 清空、插入選項
@@ -276,7 +296,7 @@
 
               // 亂數決定中選店家
               txt = toggle[r()];
-              context = all_Bonus[txt - 1];
+              context = all_Bonus[txt - 1];              
               list[0].innerText = context;
 
               pass.push(txt);
@@ -290,7 +310,7 @@
                 //按鈕恢復
                 e.target.classList.remove("not-allow");
 
-                var size = all.length / 2;
+                var size = Math.round(all.length / 2);
                 //顯示被選中的值
                 var trainList1 = document.querySelector(".trainList1");
                 //跑迴圈將li新增進去
@@ -325,30 +345,30 @@
                       return all.indexOf(f) === -1;
                     })
                   );
-                testil.innerHTML = "";
-                B500 = 0;
-                B200 = 0;
-                B100 = 0;
-                //計算剩餘數量
-                for (let b = 0; b < result.length; b++) {
-                  //計算數量
-                  if (all_Bonus[result[b] - 1] / 500 == 1) {
-                    B500 += 1;
-                  } else if (all_Bonus[result[b] - 1] / 200 == 1) {
-                    B200 += 1;
-                  } else {
-                    B100 += 1;
-                  }
-                }
-                testil.innerHTML =
-                "<div><span>準備獎項<br/>500元 x 2 個<br/>200元 x 5 個<br/>100元 x 33 個<br/><br/>剩餘獎項</span></div><div><span>500元 x " +
-                  B500 +
-                  " 個</span></div><div><span>200元 x " +
-                  B200 +
-                  " 個</span></div><div><span>100元 x " +
-                  B100 +
-                  " 個</span></div>";
-                test.appendChild(testil);
+                // testil.innerHTML = "";
+                // B500 = 0;
+                // B200 = 0;
+                // B100 = 0;
+                // //計算剩餘數量
+                // for (let b = 0; b < result.length; b++) {
+                //   //計算數量
+                //   if (all_Bonus[result[b] - 1] / 500 == 1) {
+                //     B500 += 1;
+                //   } else if (all_Bonus[result[b] - 1] / 200 == 1) {
+                //     B200 += 1;
+                //   } else {
+                //     B100 += 1;
+                //   }
+                // }
+                // testil.innerHTML =
+                // "<div><span>準備獎項<br/>500元 x 2 個<br/>200元 x 5 個<br/>100元 x 33 個<br/><br/>剩餘獎項</span></div><div><span>500元 x " +
+                //   B500 +
+                //   " 個</span></div><div><span>200元 x " +
+                //   B200 +
+                //   " 個</span></div><div><span>100元 x " +
+                //   B100 +
+                //   " 個</span></div>";
+                // test.appendChild(testil);
               }, duration);
             };
 
