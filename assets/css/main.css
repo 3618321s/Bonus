@@ -9,7 +9,7 @@
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background: #FFF url("../img/6.jpg") no-repeat ;  
+  background: #FFF url("../img/7-5.gif") no-repeat ;  
   background-size: contain;
 }
 
@@ -1301,7 +1301,7 @@
   color: rgba(0, 0, 0, 0.54);
 }
 .btn-start::after {
-  content: "錢錢龍厚哩！(按這裡)";
+  content: "錢錢龍厚哩！(主持人使用)";
   line-height: 1;
   font-size: 40px
 }

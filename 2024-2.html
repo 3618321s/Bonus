@@ -146,7 +146,7 @@
     btn_hidden.onclick = function (){
       //document.getElementById("Bonus").style.visibility = "hidden";
        testil.innerHTML ="";
-       testil.innerHTML ="<div><span>對獎方式<br/><br/>將紙張箭頭↑<br/>往上<br/>用手機掃描賓果卡左方的qrcode<br/><br>金龍納福<br/>後面數字*100代表中獎金額<br/>" +
+       testil.innerHTML ="<div><span>對獎方式<br/><br/>用手機掃描賓果卡左上角的qrcode<br/><br>金龍納福<br/>後面數字*100代表中獎金額<br/>" +
              "</span></div>";
        test.appendChild(testil);
     }    
@@ -184,7 +184,7 @@
         //塞入全部陣列中
         for (let j = 0; j <= len-1; j++) {
           all.push(d[j][0]);
-          all_Bonus.push(d[j][1]);
+          all_Bonus.push(d[j][3]);
         }
         //alert(all);
 
