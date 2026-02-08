@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>過好年年好過好過年 - 內門</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧧</text></svg>">
     <style>
         :root {
             /* 定義高級感色調 */
@@ -177,6 +178,28 @@
         });
     </script>-->
     <script>
+        // 1. 獲取當前網址的查詢參數
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type'); // 獲取 'type' 的值
+
+        // 取得 DOM 元素
+        const bodyEl = document.body; 
+        let keynumbers;
+
+        // 2. 根據參數顯示不同內容
+        if (type === 'A') {
+            keynumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        }
+        else if (type === 'B') {
+            keynumbers = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+        }
+        else if (type === 'C') {
+            keynumbers = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+        }
+        else {
+            window.location.href = 'Selection.html';
+        }
+
         /* --- 金色粒子系統 --- */
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
@@ -239,7 +262,7 @@
         animate();
 
         /* --- 抽獎邏輯 --- */
-        const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const numbers = Array.from(keynumbers);
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -271,6 +294,8 @@
             });
             container.appendChild(ball);
         });
+
+        
     </script>
 
 </body>

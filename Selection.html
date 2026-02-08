@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>除夕靈魂菜色選擇器</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧧</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <audio src="20260208.mp3" autoplay loop></audio>
+    <style>
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background-color: #7f1d1d; /* 深紅背景 */
+            overflow-x: hidden;
+        }
+
+        /* 背景裝飾圖案 */
+        .bg-pattern {
+            background-image: radial-gradient(#b91c1c 15%, transparent 16%), radial-gradient(#b91c1c 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            opacity: 0.1;
+        }
+
+        /* 卡片懸停效果 */
+        .option-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+            .option-card:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+            }
+
+        /* 彈出視窗動畫 */
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-content {
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* 煙火 Canvas 層 */
+        #fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 燈籠裝飾 */
+        .lantern {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: #ef4444;
+            border-radius: 20px;
+            box-shadow: 0 0 15px #fca5a5;
+            z-index: 1;
+            animation: swing 3s infinite ease-in-out alternate;
+        }
+
+            .lantern::before {
+                content: '';
+                position: absolute;
+                top: -10px;
+                left: 15px;
+                width: 10px;
+                height: 10px;
+                background: #fbbf24;
+            }
+
+            .lantern::after {
+                content: '';
+                position: absolute;
+                bottom: -15px;
+                left: 10px;
+                width: 20px;
+                height: 15px;
+                background: #ef4444;
+                border-radius: 5px;
+            }
+
+        @keyframes swing {
+            from {
+                transform: rotate(-5deg);
+            }
+
+            to {
+                transform: rotate(5deg);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative text-white selection:bg-yellow-500 selection:text-red-900">
+
+    <!-- 背景 Canvas -->
+    <canvas id="fireworks"></canvas>
+    <div class="absolute inset-0 bg-pattern z-0"></div>
+
+    <!-- 裝飾燈籠 -->
+    <div class="lantern top-10 left-10 hidden md:block"></div>
+    <div class="lantern top-20 right-20 hidden md:block" style="animation-delay: 1s;"></div>
+
+    <!-- 主要內容容器 -->
+    <main class="relative z-10 w-full max-w-4xl px-4 py-8">
+
+        <!-- 標題區 -->
+        <div class="text-center mb-12">
+            <div class="inline-block border-b-4 border-yellow-500 pb-2 mb-4">
+                <h2 class="text-yellow-400 text-lg tracking-[0.5em] uppercase font-bold">Happy New Year</h2>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-yellow-600 drop-shadow-lg">
+                除夕靈魂菜色
+            </h1>
+            <p class="text-red-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed bg-red-900/50 p-4 rounded-xl border border-red-700 backdrop-blur-sm">
+                如果除夕晚上只能讓你選一種「靈魂菜色」代表過年，<br>你最想吃哪一種？
+            </p>
+        </div>
+        <!-- 播放音樂按鈕 -->
+        <button id="musicBtn" onclick="playMusic()"
+                class="fixed top-4 right-4 z-50 text-yellow-400 text-3xl hover:text-yellow-300 transition-colors">
+            🎵
+        </button>
+        <!-- 音樂元素 -->
+        <audio id="bgMusic" src="20260208.mp3" loop></audio>
+
+        <!-- 選項卡片網格 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+
+            <!-- 選項 A -->
+            <button onclick="selectOption('A')" class="option-card group relative bg-gradient-to-br from-red-800 to-red-900 rounded-2xl p-1 border-2 border-red-600 hover:border-yellow-400 focus:outline-none focus:ring-4 focus:ring-yellow-500/50">
+                <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                <div class="bg-red-950/80 h-full rounded-xl p-6 flex flex-col items-center text-center relative overflow-hidden">
+                    <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🍲</div>
+                    <h3 class="text-2xl font-bold text-yellow-100 mb-2">選項 A</h3>
+                    <div class="w-12 h-1 bg-yellow-500 mb-4 rounded-full"></div>
+                    <p class="text-red-100 font-medium">熱騰騰的長年菜或雞湯</p>
+                </div>
+            </button>
+
+            <!-- 選項 B -->
+            <button onclick="selectOption('B')" class="option-card group relative bg-gradient-to-br from-red-800 to-red-900 rounded-2xl p-1 border-2 border-red-600 hover:border-yellow-400 focus:outline-none focus:ring-4 focus:ring-yellow-500/50">
+                <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                <div class="bg-red-950/80 h-full rounded-xl p-6 flex flex-col items-center text-center relative overflow-hidden">
+                    <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🥩</div>
+                    <h3 class="text-2xl font-bold text-yellow-100 mb-2">選項 B</h3>
+                    <div class="w-12 h-1 bg-yellow-500 mb-4 rounded-full"></div>
+                    <p class="text-red-100 font-medium">香噴噴的紅燒肉或魚</p>
+                </div>
+            </button>
+
+            <!-- 選項 C -->
+            <button onclick="selectOption('C')" class="option-card group relative bg-gradient-to-br from-red-800 to-red-900 rounded-2xl p-1 border-2 border-red-600 hover:border-yellow-400 focus:outline-none focus:ring-4 focus:ring-yellow-500/50">
+                <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                <div class="bg-red-950/80 h-full rounded-xl p-6 flex flex-col items-center text-center relative overflow-hidden">
+                    <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🍰</div>
+                    <h3 class="text-2xl font-bold text-yellow-100 mb-2">選項 C</h3>
+                    <div class="w-12 h-1 bg-yellow-500 mb-4 rounded-full"></div>
+                    <p class="text-red-100 font-medium">酥脆的年糕或發糕</p>
+                </div>
+            </button>
+
+        </div>
+    </main>
+
+    <!-- 結果彈出視窗 (預設隱藏) -->
+    <div id="resultModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
+        <!-- 背景遮罩 -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+
+        <!-- 內容卡片 -->
+        <div class="modal-content relative bg-gradient-to-b from-red-50 to-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border-4 border-yellow-500">
+            <!-- 頂部裝飾 -->
+            <div class="h-24 bg-red-700 flex items-center justify-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9zdmc+')] opacity-30"></div>
+                <span id="modalIcon" class="text-6xl drop-shadow-md relative z-10">🧧</span>
+            </div>
+
+            <!-- 文字內容 -->
+            <div class="p-8 text-center">
+                <h3 class="text-red-800 text-sm font-bold tracking-widest uppercase mb-2">Your Choice</h3>
+                <h2 id="modalTitle" class="text-3xl font-black text-gray-800 mb-4">選項標題</h2>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 text-left rounded-r-lg">
+                    <p id="modalDesc" class="text-gray-700 text-lg font-medium leading-relaxed">
+                        這裡顯示描述內容...
+                    </p>
+                </div>
+
+                <button onclick="closeModal()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    再選一次
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 資料定義
+        const optionsData = {
+            'A': {
+                title: '熱騰騰的長年菜或雞湯',
+                desc: '（象徵平安長壽，一定要喝熱湯才像過年）',
+                icon: '🍲'
+            },
+            'B': {
+                title: '香噴噴的紅燒肉或魚',
+                desc: '（象徵富貴有餘，大魚大肉才叫過年）',
+                icon: '🥩'
+            },
+            'C': {
+                title: '酥脆的年糕或發糕',
+                desc: '（象徵步步高升，甜甜的點心才叫過年）',
+                icon: '🍰'
+            }
+        };
+
+        // 記錄選擇
+        let selectedOption = '';
+
+        // 選擇功能
+        function selectOption(optionKey) {
+            selectedOption = optionKey;
+            const data = optionsData[optionKey];
+            const modal = document.getElementById('resultModal');
+            const title = document.getElementById('modalTitle');
+            const desc = document.getElementById('modalDesc');
+            const icon = document.getElementById('modalIcon');
+
+            // 填入資料
+            title.textContent = data.title;
+            desc.textContent = data.desc; // 直接顯示包含括號的內容
+            icon.textContent = data.icon;
+
+            // 顯示 Modal
+            modal.classList.remove('hidden');
+
+            // 觸發煙火慶祝
+            createFireworkBurst(window.innerWidth / 2, window.innerHeight / 2);
+        }
+
+        // 關閉功能
+        function closeModal() {
+            //alert(selectedOption);
+            const targetUrl = `ball1.html?type=${selectedOption}`
+            window.location.href = targetUrl;
+            //const modal = document.getElementById('resultModal');
+            //modal.classList.add('hidden');
+        }
+
+        //function goToPage() {
+        //    // 根據選擇跳轉不同頁面
+        //    const targetUrl;
+        //    if (selectedOption === 'A') {
+        //        targetUrl = 'ball1.html?type=1';
+        //    } else if (selectedOption === 'B') {
+        //        targetUrl = 'ball1.html?type=2';
+        //    } else if (selectedOption === 'C') {
+        //        targetUrl = 'ball1.html?type=3';
+        //    }
+        //    window.location.href = targetUrl;
+        //}
+
+        // 煙火特效邏輯 (Canvas)
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                // 隨機速度與角度
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 4 + 1;
+                this.vx = Math.cos(angle) * velocity;
+                this.vy = Math.sin(angle) * velocity;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+                this.gravity = 0.05;
+            }
+
+            update() {
+                this.vx *= 0.95; // 摩擦力
+                this.vy *= 0.95;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function createFireworkBurst(x, y) {
+            const colors = ['#FFD700', '#FF6347', '#FFA500', '#FFFFFF', '#FF4500'];
+            for (let i = 0; i < 50; i++) {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        // 隨機背景煙火
+        function randomFirework() {
+            if (Math.random() < 0.03) { // 3% 機率每幀產生
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * (canvas.height / 2);
+                createFireworkBurst(x, y);
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            randomFirework();
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        function playMusic() {
+            const music = document.getElementById('bgMusic');
+            music.play().then(() => {
+                console.log("音樂開始播放");
+            }).catch(err => {
+                console.log("播放失敗:", err);
+            });
+        }
+    </script>
+</body>
+</html>
