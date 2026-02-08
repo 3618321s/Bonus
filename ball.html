@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>過好年年好過好過年 - 麻豆</title>
+    <style>
+        :root {
+            /* 定義高級感色調 */
+            --bg-dark: #FFE4E1; /* 深酒紅 */
+            --bg-light: #FFF8DC; /* 經典紅 */
+            --gold-bright: #f9d423;
+            --gold-dark: #ff4e50;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 紅包紅漸層背景 */
+            /*background: radial-gradient(circle at 30% 40%, var(--bg-light) 0%, var(--bg-dark) 100%);*/
+            /* --- 修改這裡 --- */
+            background-image: url('圖片二2.0_0.png');
+            background-size: cover; /* 讓圖片鋪滿全螢幕 */
+            background-position: center;  /* 圖片置中 */
+            background-repeat: no-repeat; /* 不重複 */
+            /*background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;*/
+            /* ---------------- */
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+            box-sizing: border-box; /* 確保邊框不會擠壓到畫面大小 */
+        }
+
+        /* 粒子畫布 */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .lottery-container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 220px);
+            gap: 48px;
+        }
+
+        .ball {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            /* 初始狀態圖片 (可換成你的紅包或金幣圖) */
+            background-image: url('horse.png');
+            /*background-size: 80%;*/
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /*background-color: #fff9c4;*/ /* 淡淡的金黃底色 */
+
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset -8px -8px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 96px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+            .ball:hover {
+                transform: scale(1.08);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            }
+
+            /* 跑號中與揭曉後的樣式 */
+            .ball.active {
+                background-image: none;
+                background: radial-gradient(circle at 30% 30%, #ffffff, #E8B649);
+                transform: scale(1.15);
+                color: #AD0000; /* 跳號改用紅色數字更喜慶 */
+                box-shadow: 0 0 50px rgb(240,198,160, 0.5);
+            }
+
+            .ball.revealed {
+                cursor: default;
+                transform: scale(1);
+            }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="lottery-container" id="lottery"></div>
+
+    <script>
+        /* --- 金色粒子系統 --- */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.init();
+            }
+            init() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 1;
+                this.speedX = Math.random() * 1.5 - 0.75;
+                this.speedY = Math.random() * 1.5 - 0.75;
+                // 亮金色粒子
+                this.color = `rgba(240, 151, 58, ${Math.random() * 0.6 + 0.3})`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = "white";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0; // 重設，避免影響效能
+            }
+        }
+
+        function setup() {
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        setup();
+        animate();
+
+        /* --- 抽獎邏輯 --- */
+        const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        shuffle(numbers);
+
+        const container = document.getElementById("lottery");
+        numbers.forEach(finalNumber => {
+            const ball = document.createElement("div");
+            ball.className = "ball";
+            const numDisplay = document.createElement("span");
+            ball.appendChild(numDisplay);
+
+            ball.addEventListener("click", () => {
+                if (ball.classList.contains("active")) return;
+                ball.classList.add("active");
+
+                const animation = setInterval(() => {
+                    numDisplay.textContent = Math.floor(Math.random() * 99) + 1;
+                }, 40);
+
+                setTimeout(() => {
+                    clearInterval(animation);
+                    numDisplay.textContent = finalNumber;
+                    ball.classList.add("revealed");
+                }, 2000);
+            });
+            container.appendChild(ball);
+        });
+    </script>
+
+
+</body>
+</html>
