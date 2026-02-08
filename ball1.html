@@ -89,6 +89,28 @@
                 cursor: default;
                 transform: scale(1);
             }
+
+        .back-home-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 99;
+            background: linear-gradient(135deg, #c81d25, #ff4e50);
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            padding: 14px 22px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+            transition: all 0.25s ease;
+        }
+
+            .back-home-btn:hover {
+                transform: translateY(-3px) scale(1.05);
+                box-shadow: 0 14px 30px rgba(0,0,0,0.45);
+            }
     </style>
 </head>
 <body>
@@ -96,7 +118,10 @@
     <canvas id="particle-canvas"></canvas>
 
     <div class="lottery-container" id="lottery"></div>
-
+    <!-- 右下角回到主頁按鈕 -->
+    <button class="back-home-btn" onclick="goHome()">
+        🏠
+    </button>
     <!--<script>
         /* --- 優化粒子：模擬金箔飄落 --- */
         const canvas = document.getElementById('particle-canvas');
@@ -183,7 +208,7 @@
         const type = params.get('type'); // 獲取 'type' 的值
 
         // 取得 DOM 元素
-        const bodyEl = document.body; 
+        const bodyEl = document.body;
         let keynumbers;
 
         // 2. 根據參數顯示不同內容
@@ -295,7 +320,11 @@
             container.appendChild(ball);
         });
 
-        
+        function goHome() {
+            window.location.href = 'Index.html';
+            // 👆 改成你的主畫面檔名（例如 index.html）
+        }
+
     </script>
 
 </body>

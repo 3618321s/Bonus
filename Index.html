@@ -751,7 +751,7 @@
     <canvas id="particle-canvas"></canvas>
 
     <!-- 台南區域 -->
-    <div class="city-section tainan-section" id="tainan-section" onclick="selectCity('台南', event)">
+    <div class="city-section tainan-section" id="tainan-section" onclick="selectCity('麻豆', event)">
         <div class="status-badge" id="tainan-badge"></div>
         <div class="lock-overlay"><span class="lock-icon">🔒</span></div>
         <div class="city-content">
@@ -764,7 +764,7 @@
     </div>
 
     <!-- 台中區域 -->
-    <div class="city-section taichung-section" id="taichung-section" onclick="selectCity('台中', event)">
+    <div class="city-section taichung-section" id="taichung-section" onclick="selectCity('內門', event)">
         <div class="status-badge" id="taichung-badge"></div>
         <div class="lock-overlay"><span class="lock-icon">🔒</span></div>
         <div class="city-content">
@@ -778,7 +778,6 @@
 
     <!-- 底部狀態列 -->
     <!--<div class="event-status-bar" id="event-status-bar"></div>-->
-
     <!-- Toast 提示 -->
     <div class="toast" id="toast"></div>
 
@@ -792,7 +791,7 @@
                 endDate: '2026-02-18',   // 活動結束日期 (YYYY-MM-DD)
             },
             taichung: {
-                startDate: '2026-02-09',
+                startDate: '2026-02-08',
                 endDate: '2026-02-09',
             }
         };
@@ -879,7 +878,7 @@
 
         // 城市選擇
         function selectCity(city, e) {
-            const key = city === '台南' ? 'tainan' : 'taichung';
+            const key = city === '麻豆' ? 'tainan' : 'taichung';
             const section = document.getElementById(`${key}-section`);
             const config = EVENT_CONFIG[key];
             const { status } = getStatus(config);
@@ -914,11 +913,11 @@
             showToast('🎉', `你選擇了 ${city}！`, '即將為你跳轉⋯');
 
             // 可在此做後續導向
-            if (city == "台南") {
+            if (city == "麻豆") {
                 setTimeout(() => { window.location.href = './Selection.html'; }, 2000);
             }
             else {
-                setTimeout(() => { window.location.href = './ball1.html'; }, 2000);
+                setTimeout(() => { window.location.href = './Selection1.html'; }, 2000);
             }
         }
 
