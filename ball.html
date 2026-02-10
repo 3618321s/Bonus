@@ -7,7 +7,7 @@
     <style>
         :root {
             /* 定義高級感色調 */
-            --bg-dark: #FFE4E1; /* 深酒紅 */
+            --bg-dark: #fff9f0; /* 深酒紅 */
             --bg-light: #FFF8DC; /* 經典紅 */
             --gold-bright: #f9d423;
             --gold-dark: #ff4e50;
@@ -20,15 +20,12 @@
             justify-content: center;
             align-items: center;
             /* 紅包紅漸層背景 */
-            /*background: radial-gradient(circle at 30% 40%, var(--bg-light) 0%, var(--bg-dark) 100%);*/
+            background: radial-gradient(circle, var(--bg-light) 0%, var(--bg-dark) 100%);
             /* --- 修改這裡 --- */
-            background-image: url('/Bonus/img/圖片二2.0_0.png');
-            background-size: cover; /* 讓圖片鋪滿全螢幕 */
-            background-position: center; /* 圖片置中 */
-            background-repeat: no-repeat; /* 不重複 */
-            /*background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;*/
+            /*background-image: url('圖片二2.0_0.png');
+            background-size: cover;*/ /* 讓圖片鋪滿全螢幕 */
+            /*background-position: center;*/ /* 圖片置中 */
+            /*background-repeat: no-repeat;*/ /* 不重複 */
             /* ---------------- */
             font-family: "Microsoft JhengHei", Arial, sans-serif;
             overflow: hidden;
@@ -48,6 +45,7 @@
 
         .lottery-container {
             position: relative;
+            top: 20px;
             z-index: 1;
             display: grid;
             grid-template-columns: repeat(5, 220px);
@@ -86,7 +84,7 @@
             /* 跑號中與揭曉後的樣式 */
             .ball.active {
                 background-image: none;
-                background: radial-gradient(circle at 30% 30%, #ffffff, #E8B649);
+                background: radial-gradient(circle at 30% 30%, #ffffff, #ffd700);
                 transform: scale(1.15);
                 color: #AD0000; /* 跳號改用紅色數字更喜慶 */
                 box-shadow: 0 0 50px rgb(240,198,160, 0.5);
@@ -96,12 +94,148 @@
                 cursor: default;
                 transform: scale(1);
             }
+        /* 側邊裝飾 - 金幣 */
+        .side-decoration {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 50;
+        }
+
+        .left-decoration {
+            left: 10px;
+        }
+
+        .right-decoration {
+            right: 10px;
+        }
+
+        .coin {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ffd700, #daa520);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            animation: float 5s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b0000;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* 動畫定義 */
+        @keyframes swing {
+            0%, 100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #ffd700;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #ffd700, 0 0 30px #ff6600;
+            }
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(20);
+                opacity: 0;
+            }
+        }
+        /*燈籠*/
+        .lantern {
+            position: fixed;
+            top: 15px;
+            font-size: 80px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: swing 2s ease-in-out infinite alternate;
+            transform-origin: top center;
+        }
+
+            .lantern.left {
+                left: 20px;
+            }
+
+            .lantern.right {
+                right: 20px;
+                animation-delay: 0.5s;
+            }
+
+        @keyframes swing {
+            from {
+                transform: rotate(-8deg);
+            }
+
+            to {
+                transform: rotate(8deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .lantern {
+                display: none;
+            }
+        }
+
+        /* 頂部裝飾 - 紅包和燈籠 */
+        .top-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, #c41e3a, #8b0000);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .couplet {
+            color: #ffd700;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            letter-spacing: 5px;
+            animation: glow 2s infinite alternate;
+        }
 
         .back-home-btn {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            z-index: 99;
+            z-index: 102;
             background: linear-gradient(135deg, #c81d25, #ff4e50);
             color: #fff;
             border: none;
@@ -118,13 +252,52 @@
                 transform: translateY(-3px) scale(1.05);
                 box-shadow: 0 14px 30px rgba(0,0,0,0.45);
             }
+        /* 底部裝飾 - 春聯 */
+        .bottom-decoration {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to top, #8b0000, #c41e3a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
 
     <canvas id="particle-canvas"></canvas>
-
+    <!--球體-->
     <div class="lottery-container" id="lottery"></div>
+    <!--頂部裝飾-->
+    <div class="top-decoration">
+        <div class="couplet">一馬當先開新局　萬馬奔騰報好音</div>
+    </div>
+    <!--燈籠-->
+    <div class="lantern left">🏮</div>
+    <div class="lantern right">🏮</div>
+    <!-- 側邊裝飾 -->
+    <div class="side-decoration left-decoration">
+        <div class="coin">招</div>
+        <div class="coin">財</div>
+        <div class="coin">進</div>
+        <div class="coin">寶</div>
+    </div>
+
+    <div class="side-decoration right-decoration">
+        <div class="coin">福</div>
+        <div class="coin">祿</div>
+        <div class="coin">壽</div>
+        <div class="coin">喜</div>
+    </div>
+    <!-- 底部裝飾 -->
+    <div class="bottom-decoration">
+        <div class="couplet">祝大家 馬尼多多</div>
+    </div>
     <!-- 右下角回到主頁按鈕 -->
     <button class="back-home-btn" onclick="goHome()">
         🏠
@@ -146,10 +319,10 @@
             keynumbers = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
         }
         else if (type === 'C') {
-            keynumbers = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+             keynumbers = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
         }
         else {
-            window.location.href = 'Selection.html';
+             window.location.href = 'Selection.html';
         }
         /* --- 金色粒子系統 --- */
         const canvas = document.getElementById('particle-canvas');
